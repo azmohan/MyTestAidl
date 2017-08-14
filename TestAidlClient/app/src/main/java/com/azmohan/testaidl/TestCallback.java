@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: /home/azmohan/multimedia/TestAidl/app/src/main/aidl/com/azmohan/testaidl/TestCallback.aidl
+ * Original file: /home/azmohan/multimedia/test/TestAidl/app/src/main/aidl/com/azmohan/testaidl/TestCallback.aidl
  */
 package com.azmohan.testaidl;
 
@@ -57,6 +57,24 @@ public interface TestCallback extends android.os.IInterface {
                     reply.writeNoException();
                     return true;
                 }
+                case TRANSACTION_notifyCustomDataChanged: {
+                    data.enforceInterface(DESCRIPTOR);
+                    com.azmohan.testaidl.Rectangle _arg0;
+                    if ((0 != data.readInt())) {
+                        _arg0 = com.azmohan.testaidl.Rectangle.CREATOR.createFromParcel(data);
+                    } else {
+                        _arg0 = null;
+                    }
+                    this.notifyCustomDataChanged(_arg0);
+                    reply.writeNoException();
+                    if ((_arg0 != null)) {
+                        reply.writeInt(1);
+                        _arg0.writeToParcel(reply, android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
+                    } else {
+                        reply.writeInt(0);
+                    }
+                    return true;
+                }
             }
             return super.onTransact(code, data, reply, flags);
         }
@@ -96,10 +114,36 @@ public interface TestCallback extends android.os.IInterface {
                     _data.recycle();
                 }
             }
+
+            @Override
+            public void notifyCustomDataChanged(com.azmohan.testaidl.Rectangle rect) throws android.os.RemoteException {
+                android.os.Parcel _data = android.os.Parcel.obtain();
+                android.os.Parcel _reply = android.os.Parcel.obtain();
+                try {
+                    _data.writeInterfaceToken(DESCRIPTOR);
+                    if ((rect != null)) {
+                        _data.writeInt(1);
+                        rect.writeToParcel(_data, 0);
+                    } else {
+                        _data.writeInt(0);
+                    }
+                    mRemote.transact(Stub.TRANSACTION_notifyCustomDataChanged, _data, _reply, 0);
+                    _reply.readException();
+                    if ((0 != _reply.readInt())) {
+                        rect.readFromParcel(_reply);
+                    }
+                } finally {
+                    _reply.recycle();
+                    _data.recycle();
+                }
+            }
         }
 
         static final int TRANSACTION_notifyDataChanged = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+        static final int TRANSACTION_notifyCustomDataChanged = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
     }
 
     public void notifyDataChanged(android.graphics.Rect rect) throws android.os.RemoteException;
+
+    public void notifyCustomDataChanged(com.azmohan.testaidl.Rectangle rect) throws android.os.RemoteException;
 }

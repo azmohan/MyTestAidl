@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.azmohan.testaidl.IMyAidlInterface;
+import com.azmohan.testaidl.Rectangle;
 import com.azmohan.testaidl.TestCallback;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void notifyDataChanged(Rect rect) throws RemoteException {
             Log.i("azmohan", "rect:" + rect.toShortString());
+        }
+
+        @Override
+        public void notifyCustomDataChanged(Rectangle rect) throws RemoteException {
+            Log.i("azmohan", "rectangle : " + rect.toString());
         }
     };
 

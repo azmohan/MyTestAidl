@@ -27,8 +27,10 @@ public class RemoteService extends Service {
                 for (TestCallback callback : mCallbackList) {
                     if (callback != null) {
                         android.graphics.Rect rect = new android.graphics.Rect(1, 2, 3, 4);
-                        Log.i("azmohan","notifyDataChanged");
+                        Log.i("azmohan", "notifyDataChanged");
                         callback.notifyDataChanged(rect);
+                        Rectangle rectangle = new Rectangle(5, 6, 7, 8);
+                        callback.notifyCustomDataChanged(rectangle);
                     }
                 }
             }
@@ -36,9 +38,9 @@ public class RemoteService extends Service {
 
         @Override
         public void registerCallback(TestCallback callback) throws RemoteException {
-            Log.i("azmohan","registerCallback callback:"+callback + ",isContains:"+mCallbackList.contains(callback));
+            Log.i("azmohan", "registerCallback callback:" + callback + ",isContains:" + mCallbackList.contains(callback));
             if (callback != null && !mCallbackList.contains(callback)) {
-                Log.i("azmohan","registerCallback");
+                Log.i("azmohan", "registerCallback");
                 mCallbackList.add(callback);
             }
         }
